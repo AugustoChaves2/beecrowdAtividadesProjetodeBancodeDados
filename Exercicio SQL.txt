@@ -1,0 +1,311 @@
+Exercicio
+
+2603 - Endereço dos Clientes
+
+SUBMISSÃO # 28584075
+
+Solução
+
+SELECT name, street FROM customers
+  where city = 'Porto Alegre';
+
+
+2607 - Cidades em Ordem Alfabética
+
+SUBMISSÃO # 28584352
+
+Solução
+
+SELECT DISTINCT city FROM providers
+  ORDER BY city;
+
+
+
+2608 - Maior e Menor Preço
+
+SUBMISSÃO # 28584694
+
+Solução
+
+SELECT MAX(price),MIN(price) FROM products;
+
+
+
+2615 - Expandindo o Negocio
+
+SUBMISSÃO # 28584761
+
+Solução
+
+SELECT DISTINCT city FROM customers;
+
+
+2602 - Select Básico
+
+SUBMISSÃO # 28584829
+
+Solução 
+
+SELECT name FROM customers
+WHERE state = 'RS';
+
+
+2609 - Produtos por Categorias
+
+SUBMISSÃO # 28586822
+
+Solução
+
+select ctg.name, sum(prd.amount)
+  from products prd
+  join categories ctg on prd.id_categories = ctg.id
+  group by ctg.name
+  order by ctg.name;
+
+
+2604 - Menores que 10 ou Maiores que 100
+
+SUBMISSÃO # 28696478
+
+Solução 
+
+SELECT id, name
+FROM products
+WHERE price < 10
+or price > 100;
+
+
+2605 - Representantes Executivos
+
+SUBMISSÃO # 28696875
+
+Solução
+
+SELECT products.name,providers.name
+FROM products
+INNER JOIN providers
+ON products.id_providers = providers.id
+where id_categories = '6';
+
+
+2610 - Valor Médio dos Produtos
+
+SUBMISSÃO # 28696957
+
+Solução
+
+SELECT ROUND(AVG(price),2)    
+FROM products;
+
+
+2614 - Locações de Setembro
+
+SUBMISSÃO # 28697648
+
+Solução
+
+SELECT customers.name, rentals.rentals_date
+FROM customers
+INNER JOIN rentals
+ON customers.id = rentals.id_customers
+WHERE  TO_CHAR(rentals_date, 'YYYY/MM') = '2016/09';
+
+
+2613 - Filmes em Promoção
+
+SUBMISSÃO # 28697758
+
+Solução
+
+SELECT movies.id, movies.name
+FROM movies
+INNER JOIN prices
+ON movies.id_prices = prices.id
+where value < 2;
+
+2611 - Filmes de Ação
+
+SUBMISSÃO # 28697824
+
+Solução
+
+SELECT movies.id, movies.name
+FROM movies
+INNER JOIN genres
+ON movies.id_genres = genres.id
+where description = 'Action';
+
+
+2616 - Nenhuma Locação
+
+SUBMISSÃO # 28698409
+
+Solução
+
+SELECT customers.id, customers.name
+FROM locations
+right outer join customers
+ON locations.id_customers = customers.id
+where locations.id_customers is null;
+
+
+2606 - Categorias
+
+SUBMISSÃO # 28698445
+
+Solução
+
+select products.id, products.name
+	from products
+		inner join categories  on categories.id = products.id_categories
+	where categories.name like 'super%';
+
+
+2621 - Quantidades Entre 10 e 20
+
+SUBMISSÃO # 28698741
+
+Solução
+
+select products.name
+	from products
+	 inner join providers on providers.id = products.id_providers
+	where products.amount between 10 and 20  and providers.name like 'P%' ;
+
+
+2622 - Pessoas Jurídicas
+
+SUBMISSÃO # 28698869
+
+Solução
+
+SELECT customers.name
+FROM legal_person
+right outer join customers
+ON legal_person.id_customers = customers.id
+where legal_person.cnpj !=  'null';
+
+
+2619 - Super Luxo
+
+SUBMISSÃO # 28699032
+
+Solução
+
+SELECT products.name, providers.name, products.price
+  FROM products
+  inner JOIN providers on products.id_providers = providers.id
+  inner JOIN categories on products.id_categories = categories.id
+  WHERE products.price > 1000 and categories.name = 'Super Luxury';
+
+
+2617 - Fornecedor Ajax SA
+
+SUBMISSÃO # 28699086
+
+Solução
+
+SELECT products.name, providers.name
+FROM providers
+INNER JOIN products
+ON providers.id = products.id_providers
+where providers.name = 'Ajax SA';
+
+
+2618 - Produtos Importados
+
+SUBMISSÃO # 28699164
+
+Solução
+
+SELECT products.name, providers.name, categories.name
+  FROM products
+  inner JOIN providers on products.id_providers = providers.id
+  inner JOIN categories on products.id_categories = categories.id
+  WHERE providers.name = 'Sansul SA' and categories.name = 'Imported';
+
+
+2620 - Pedidos no Primeiro Semestre
+
+SUBMISSÃO # 28699349
+
+Solução
+
+SELECT customers.name, orders.id
+FROM customers
+INNER JOIN orders
+ON customers.id = orders.id_customers
+WHERE orders_date>= '2016-01-01' and orders_date<= '2016-06-30';
+
+
+2624 - Quantidades de Cidades por Clientes
+
+SUBMISSÃO # 28699423
+
+Solução
+
+SELECT   
+   COUNT(distinct city) 
+FROM 
+   customers
+;
+
+
+2623 - Categorias com Vários Produtos
+
+SUBMISSÃO # 28702214
+
+Solução
+
+SELECT products.name, categories.name
+  FROM products
+  inner JOIN categories on products.id_categories = categories.id
+  WHERE categories.id in (1,2,3,6,9) and 
+  (products.amount > 100)
+  order by categories.id;
+
+
+2625 - Máscara de CPF
+
+SUBMISSÃO # 28702534
+
+Solução
+
+SELECT REGEXP_REPLACE(natural_person.cpf,
+        '([[:digit:]]{3})([[:digit:]]{3})([[:digit:]]{3})([[:digit:]]{2})',
+        '\1.\2.\3-\4') AS CPF
+FROM natural_person;
+
+
+2738 - Concurso
+
+SUBMISSÃO # 28702816
+
+Solução
+
+select candidate.name,
+ ROUND((score.math*2 + score.specific*3 + score.project_plan*5) / 10, 2) avg
+ from candidate
+  inner join score 
+  on candidate.id = score.candidate_id
+  order by avg desc;
+
+2737 - Advogados
+
+SUBMISSÃO # 28702940
+
+Solução
+
+SELECT name, customers_number
+FROM lawyers
+WHERE
+customers_number = (SELECT MAX(customers_number) FROM lawyers)
+UNION ALL
+SELECT name, customers_number
+FROM lawyers
+WHERE
+customers_number = (SELECT MIN(customers_number) FROM lawyers)
+UNION ALL
+SELECT 'Average', CAST(AVG(customers_number) AS INTEGER)
+FROM lawyers;
+
